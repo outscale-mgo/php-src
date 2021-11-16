@@ -1165,6 +1165,10 @@ PHP_MINIT_FUNCTION(curl)
 	REGISTER_CURL_CONSTANT(CURLOPT_SSLKEY_BLOB);
 #endif
 
+#if LIBCURL_VERSION_NUM >= 0x074B00 /* Available since 7.75.0 */
+	REGISTER_CURL_CONSTANT(CURLOPT_AWS_SIGV4);
+#endif
+
 	REGISTER_CURL_CONSTANT(CURLOPT_SAFE_UPLOAD);
 
 #ifdef PHP_CURL_NEED_OPENSSL_TSL
@@ -2532,6 +2536,9 @@ static zend_result _php_curl_setopt(php_curl *ch, zend_long option, zval *zvalue
 #endif
 #if LIBCURL_VERSION_NUM >= 0x074700 /* Available since 7.71.0 */
 		case CURLOPT_PROXY_ISSUERCERT:
+#endif
+#if LIBCURL_VERSION_NUM >= 0x074B00 /* Available since 7.75.0 */
+		case CURLOPT_AWS_SIGV4:
 #endif
 		{
 			zend_string *tmp_str;
